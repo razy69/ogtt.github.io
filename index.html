@@ -48,11 +48,11 @@
   						</div>
               <div class="row">
   							<div class="input-field col s6">
-  								<input placeholder="Saisissez un montant" id="quantity" type="number" onclick="getTotal()" required>
+  								<input placeholder="Saisissez un montant" id="quantity" type="number" OnClick="getTotal()" required>
   								<label class="active" for="quantity">Quantité à vendre</label>
   							</div>
                 <div class="input-field col s6 m6" id="ressource-type-select">
-                  <select class="icons" id="type-ressource" onclick="getTotal()">
+                  <select class="icons" id="type-ressource" OnChange="getTotal()">
                     <option value="" disabled selected>Choisissez un type de ressource</option>
                     <option value="metal" data-icon="images/metal.png" class="left circle">Métal</option>
                     <option value="cristal" data-icon="images/cristal.png" class="left circle">Cristal</option>
@@ -81,7 +81,7 @@
                 <div class="input-field col s2"></div>
                 <div class="input-field col s8 content-mix">
                   <p class="range-field hidden-div" id="mix-slider">
-                    <input type="range" id="mix-pourcentage" min="10" max="90" step="10" value="50" onchange="getTotal()"/>
+                    <input type="range" id="mix-pourcentage" min="10" max="90" step="10" value="50" OnChange="getTotal()"/>
                   </p>
                   <span class="content-mix-value right"></span>
                 </div>
