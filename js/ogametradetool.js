@@ -47,7 +47,7 @@ function resetForm(){
    document.getElementById("ressource-image").innerHTML = "";
    document.getElementById('total-div-title').innerHTML = "";
    document.getElementById('total-div').innerHTML = "";
-   document.getElementById("type-ressource").select("");
+   document.getElementById("type-ressource").select("metal");
 }
 
 function showMix(){
