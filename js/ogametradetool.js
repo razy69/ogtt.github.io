@@ -39,9 +39,6 @@ function getRessourceType(){
 }
 
 function resetForm(){
-   var OGTradeTool = document.forms["ogtradetool"];
-   //Get a reference to the cake the user Chooses name=selectedCake":
-   var SelectedRessourceType = OGTradeTool.elements["type-ressource"];
    document.getElementById("ogtradetool").reset();
    document.getElementById("mix").disabled = true;
    document.getElementById("ressource-type-select").className = "input-field col s6 m6";
