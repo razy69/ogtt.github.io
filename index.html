@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8">
+		<title>Ogame Trade Tool</title>
+		<meta name="description" content="The HTML5 Herald">
+		<meta name="author" content="SitePoint">
+
+		<!--Import Google Icon Font-->
+		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<!--Import materialize.css-->
+		<link type="text/css" rel="stylesheet" href="css/materialize.min.css"	media="screen,projection"/>
+		<!--Import custom.css-->
+		<link rel="stylesheet" href="css/custom.css">
+
+		<!--Let browser know website is optimized for mobile-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+		<!--[if lt IE 9]>
+			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+	</head>
+	<body>
+
+		<header>
+			<nav>
+				<div class="nav-wrapper grey darken-3 grey-text text-lighten-3">
+					<div class="nav-container">
+						<a href="#" class="brand-logo">Ogame Trade Tool</a>
+						<ul id="nav-mobile" class="right hide-on-med-and-down">
+							<li><a href="#">By Razy69</a></li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</header>
+
+		<main>
+			<div class="container">
+				<div class="row"></div>
+        <div class="row"></div>
+        <div class="row"></div>
+				<div class="row">
+					<form class="col s12" onsubmit="return false;" id="ogtradetool">
+              <div class="row">
+  							<h4 class="col s12 left-align grey-text text-darken-4">Ressources</h4>
+  						</div>
+              <div class="row">
+  							<div class="input-field col s6">
+  								<input placeholder="Saisissez un montant" id="quantity" type="number" onchange="getTotal()" required>
+  								<label class="active" for="quantity">Quantité à vendre</label>
+  							</div>
+                <div class="input-field col s6 m6" id="ressource-type-select">
+                  <select class="icons" id="type-ressource" onchange="getTotal()">
+                    <option value="" disabled selected>Choisissez un type de ressource</option>
+                    <option value="metal" data-icon="images/metal.png" class="left circle">Métal</option>
+                    <option value="cristal" data-icon="images/cristal.png" class="left circle">Cristal</option>
+                    <option value="deuterium" data-icon="images/deuterium.png" class="left circle">Deutérium</option>
+                  </select>
+                  <label>Type de ressource</label>
+                </div>
+                <div id="ressource-image"></div>
+  					  </div>
+              <div class="row"></div>
+              <div class="row">
+                <h4 class="col s1 left-align grey-text text-darken-4">Mix</h4>
+                <div class="input-field col s11 left-align">
+                  <!-- Switch -->
+                  <div class="switch">
+                    <label class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Valable uniquement pour la vente de Deutérium">
+                      Off
+                      <input type="checkbox" id="mix" onclick="showMix()" value="true" name="mix" disabled="true">
+                      <span class="lever"></span>
+                      On
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s2"></div>
+                <div class="input-field col s8 content-mix">
+                  <p class="range-field hidden-div" id="mix-slider">
+                    <input type="range" id="mix-pourcentage" min="10" max="90" step="10" value="50" onchange="getTotal()"/>
+                  </p>
+                  <span class="content-mix-value right"></span>
+                </div>
+                <div class="input-field col s2"></div>
+              </div>
+              <div class="row">
+  							<h4 class="col s12 left-align grey-text text-darken-4">Taux</h4>
+  						</div>
+              <div class="row">
+                <div class="input-field col s4">
+                  <input required value="2.2" placeholder="Entre 2 et 3" id="taux-metal" onchange="getTotal()" type="number">
+                  <label for="taux-metal">Métal</label>
+                </div>
+                <div class="input-field col s4">
+                  <input value="1.6" placeholder="Entre 1,5 et 2,5" id="taux-cristal" onchange="getTotal()" type="number">
+                  <label for="taux-cristal">Cristal</label>
+                </div>
+                <div class="input-field col s4">
+                  <input disabled value="1" id="taux-deuterium" type="number">
+                  <label for="taux-metal">Deutérium</label>
+                </div>
+              </div>
+              <div class="row"></div>
+
+              <div class="row" id="total-div-title"></div>
+              <div class="row" id="total-div"></div>
+
+					</form>
+      	</div>
+      </div>
+			<div class="fixed-action-btn" style="bottom: 50px; right 50px;">
+				<a class="btn-floating btn-large grey waves-effect waves-ligh" onclick="resetForm()">
+					<i class="large material-icons">delete</i>
+				</a>
+			</div>
+    </main>
+
+		<!--Import jQuery before materialize.js-->
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script defer type="text/javascript" src="js/materialize.min.js"></script>
+    <script defer type="text/javascript" src="js/ogametradetool.js"></script>
+    <script>
+		  $(document).ready(function() {
+			     $('select').material_select();
+					 $("mix-slider").hide();
+	 			 	 $('.tooltipped').tooltip({delay: 50});
+		  });
+		</script>
+
+	</body>
+</html>
