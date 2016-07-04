@@ -17,6 +17,10 @@ fieldset {
   border: none;
 }
 
-.hidden-div {
+.hidden-slider {
+  display: none;
+}
+
+.hidden {
   display: none;
 }

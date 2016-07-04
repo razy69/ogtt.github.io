@@ -1,179 +1,190 @@
 function getRessourceType(){
-    // Init var
-    var RessourceType = "";
-    var displayImage = "";
-    //Get a reference to the form id="ogtradetool"
-    var OGTradeTool = document.forms["ogtradetool"];
-    //Get a reference to the cake the user Chooses name=selectedCake":
-    var SelectedRessourceType = OGTradeTool.elements["type-ressource"];
-    RessourceType = SelectedRessourceType.value;
+    var displayImage = '';
+    var RessourceType = $('#type-ressource').val();
 
-    if (RessourceType == "metal"){
-      displayImage = '<img src="images/metal.png" alt="Métal" class="circle responsive-img">'
-      document.getElementById("mix").checked = false;
-      document.getElementById("mix").disabled = true;
-      $(".hidden-div").hide();
-      $(".content-mix .content-mix-value").html("");
-      document.getElementById("ressource-type-select").className = "input-field col s4 m4";
-      document.getElementById("ressource-image").className = "col s2 m2 right-align";
-      document.getElementById("ressource-image").innerHTML = displayImage;
-    } else if (RessourceType == "cristal"){
-      displayImage = '<img src="images/cristal.png" alt="Métal" class="circle responsive-img">'
-      document.getElementById("mix").checked = false;
-      document.getElementById("mix").disabled = true;
-      $(".hidden-div").hide();
-      $(".content-mix .content-mix-value").html("");
-      document.getElementById("ressource-type-select").className = "input-field col s4 m4";
-      document.getElementById("ressource-image").className = "col s2 m2 right-align";
-      document.getElementById('ressource-image').innerHTML = displayImage;
-    } else if (RessourceType == "deuterium"){
-      displayImage = '<img src="images/deuterium.png" alt="Métal" class="circle responsive-img">'
-      document.getElementById("mix").disabled = false;
-      document.getElementById("ressource-type-select").className = "input-field col s4 m4";
-      document.getElementById("ressource-image").className = "col s2 m2 right-align";
-      document.getElementById('ressource-image').innerHTML = displayImage;
+    if (RessourceType == 'metal'){
+      displayImage = '<img src="images/metal.png" alt="Métal" class="circle responsive-img">';
+      $('#mix').prop('checked', false);
+      $('#mix').prop('disabled', true);
+      $('.hidden-slider').hide();
+      $('.content-mix .content-mix-value').html('');
+      $('#ressource-type-select').removeClass('s6 m6').addClass('s4 m4');
+      $('#ressource-image').addClass('col s2 m2 right-align')
+      $('#ressource-image').html(displayImage);
+
+    } else if (RessourceType == 'cristal'){
+      displayImage = '<img src="images/cristal.png" alt="Métal" class="circle responsive-img">';
+      $('#mix').prop('checked', false);
+      $('#mix').prop('disabled', true);
+      $('.hidden-slider').hide();
+      $('.content-mix .content-mix-value').html('');
+      $('#ressource-type-select').removeClass('s6 m6').addClass('s4 m4');
+      $('#ressource-image').addClass('col s2 m2 right-align')
+      $('#ressource-image').html(displayImage);
+
+    } else if (RessourceType == 'deuterium'){
+      displayImage = '<img src="images/deuterium.png" alt="Métal" class="circle responsive-img">';
+      $('#mix').prop('disabled', false);
+      $('#ressource-type-select').removeClass('s6 m6').addClass('s4 m4');
+      $('#ressource-image').addClass('col s2 m2 right-align')
+      $('#ressource-image').html(displayImage);
     }
-
-    // Return value
     return RessourceType;
 }
 
 function resetForm(){
-   document.getElementById("ogtradetool").reset();
-   ​document.getElementById("type-ressource").value = "none";​​​​​​​​​​
-   document.getElementById("mix").checked = false;
-   document.getElementById("mix").disabled = true;
-   document.getElementById("ressource-type-select").className = "input-field col s6 m6";
-   document.getElementById("ressource-image").className = "";
-   document.getElementById("ressource-image").innerHTML = "";
-   document.getElementById("total-div-title").innerHTML = "";
-   document.getElementById("total-div").innerHTML = "";
+   $('#ogtradetool').trigger('reset');
+   $('#mix').prop('checked', false);
+   $('#mix').prop('disabled', true);
+   $('.hidden-slider').hide();
+   $('.content-mix .content-mix-value').html('');
+   $('#ressource-type-select').removeClass('s4 m4').addClass('s6 m6');
+   $('#ressource-image').removeClass('col s2 m2 right-align')
+   $('#ressource-image').html('');
+   $('#total-div-title').html('');
+   $('#total-div').html('');
+   $('#btn-copy-div').html('');
+   $('.hidden').hide();
 }
 
 function showMix(){
-    var OGTradeTool = document.forms["ogtradetool"];
-    var Mix = OGTradeTool.elements["mix"];
-    var MixPourcentage = OGTradeTool.elements["mix-pourcentage"].value;
-    if (Mix.checked) {
-      $(".hidden-div").show();
-      $(".content-mix .content-mix-value").html(MixPourcentage + "% de Métal");
+    var MixPourcentage = $('#mix-pourcentage').val();
+    if ($('#mix').is(':checked')) {
+      $('.hidden-slider').show();
+      $('.content-mix .content-mix-value').html(MixPourcentage + '% de Métal');
       getTotal();
     } else {
-      $(".hidden-div").hide();
-      $(".content-mix .content-mix-value").html("");
+      $('.hidden-slider').hide();
+      $('.content-mix .content-mix-value').html('');
       getTotal();
     }
 }
 
 function getMix(){
-  var OGTradeTool = document.forms["ogtradetool"];
-  var MixPourcentage = OGTradeTool.elements["mix-pourcentage"].value;
+  var MixPourcentage = $('#mix-pourcentage').val();
   return MixPourcentage;
 }
 
 function getTaux(){
-    // init var
+    var GetTauxMetal = $('#taux-metal').val();
+    var GetTauxCristal = $('#taux-cristal').val();
+    var GetTauxDeuterium = $('#taux-deuterium').val();
     var TauxMetal = parseFloat('2.2');
     var TauxCristal = parseFloat('1.6');
     var TauxDeuterium = parseFloat('1');
     var Taux = new Array();
-    //Get a reference to the form id="ogtradetool"
-    var OGTradeTool = document.forms["ogtradetool"];
-    //Get a reference to the TextBox
-    var GetTauxMetal = OGTradeTool.elements["taux-metal"];
-    if(GetTauxMetal.value!=""){
-        TauxMetal = parseFloat(GetTauxMetal.value);
+
+    if (GetTauxMetal != ''){
+        TauxMetal = parseFloat(GetTauxMetal);
     }
-    //Get a reference to the TextBox
-    var GetTauxCristal = OGTradeTool.elements["taux-cristal"];
-    if(GetTauxCristal.value!=""){
-        TauxCristal = parseFloat(GetTauxCristal.value);
+    if (GetTauxCristal != '') {
+        TauxCristal = parseFloat(GetTauxCristal);
     }
-    //Get a reference to the TextBox
-    var GetTauxDeuterium = OGTradeTool.elements["taux-deuterium"];
-    if(GetTauxDeuterium.value!=""){
-        TauxDeuterium = parseFloat(GetTauxDeuterium.value);
+    if (GetTauxDeuterium != '') {
+        TauxDeuterium = parseFloat(GetTauxDeuterium);
     }
 
-    var Taux = [TauxMetal, TauxCristal, TauxDeuterium];
+    if ((GetTauxMetal != '') || (GetTauxCristal != '') || (GetTauxDeuterium != '')){
+      var Taux = [TauxMetal, TauxCristal, TauxDeuterium];
+    } else {
+      var Taux = [2.2, 1.6, 1];
+    }
+
     return Taux;
 }
 
 function getQuantity(){
-    //Get a reference to the form id="ogtradetool"
-    var OGTradeTool = document.forms["ogtradetool"];
-    //Get a reference to the TextBox
-    var Quantity = OGTradeTool.elements["quantity"];
-    var HowMany = 0;
-    //If the textbox is not blank
-    if(Quantity.value!=""){
-        HowMany = parseInt(Quantity.value);
+    var Quantity = $('#quantity').val();
+
+    if (Quantity > 0){
+      Quantity = parseInt(Quantity);
+    } else {
+      Quantity = null;
     }
-    return HowMany;
+
+    return Quantity;
 }
 
 function calculTotal(){
-
     var Quantity = getQuantity();
-    var Taux = getTaux();
     var RessourceType = getRessourceType();
+    var Taux = getTaux();
     var TauxM = Taux[0];
     var TauxC = Taux[1];
     var TauxD = Taux[2];
     var Mix = getMix();
-    var OGTradeTool = document.forms["ogtradetool"];
-    var isMix = OGTradeTool.elements["mix"];
-    if (isMix.checked) {
-      $(".hidden-div").show();
-      $(".content-mix .content-mix-value").html(Mix + "% de Métal");
+    var isMix = $('#mix').is(':checked');
+
+    if (isMix) {
+      $('.hidden-slider').show();
+      $('.content-mix .content-mix-value').html(Mix + '% de Métal');
     } else {
-      $(".hidden-div").hide();
-      $(".content-mix .content-mix-value").html("");
+      $('.hidden-slider').hide();
+      $('.content-mix .content-mix-value').html('');
     }
 
-    if (RessourceType == "metal"){
-      var Metal = "Cristal OU Deutérium";
+    if (RessourceType == 'metal'){
+      var Metal = 'Cristal OU Deutérium';
       var Cristal = (Quantity / (TauxM / TauxC)).toFixed();
       var Deuterium = (Quantity / TauxM).toFixed();
-    } else if (RessourceType == "cristal") {
+      var Copy = Cristal + ' de Cristal OU ' + Deuterium + ' de Deutérium';
+
+    } else if (RessourceType == 'cristal') {
       var Metal =  (Quantity * (TauxM / TauxC)).toFixed();
-      var Cristal = "Métal OU Deutérium";
+      var Cristal = 'Métal OU Deutérium';
       var Deuterium = (Quantity / TauxC).toFixed();
-    } else if (RessourceType == "deuterium") {
-      if (isMix.checked) {
+      var Copy = Metal + ' de Métal OU ' + Deuterium + ' de Deutérium';
+
+    } else if (RessourceType == 'deuterium') {
+      if (isMix) {
         var MetalSansTaux = Quantity * (Mix / 100);
-        var CristalSansTaux = Quantity * ((100 - Mix) / 100)
+        var CristalSansTaux = Quantity * ((100 - Mix) / 100);
         var Metal = (MetalSansTaux * (TauxM / TauxD)).toFixed();
         var Cristal = (CristalSansTaux * (TauxC / TauxD)).toFixed();
-        var Deuterium = "Métal ET Cristal";
+        var Deuterium = 'Métal ET Cristal';
+        var Copy = Metal + ' de Métal ET ' + Cristal + ' de Cristal';
       } else {
         var Metal = (Quantity * (TauxM/TauxD)).toFixed();
         var Cristal = (Quantity * (TauxC/TauxD)).toFixed();
-        var Deuterium = "Métal OU Cristal";
+        var Deuterium = 'Métal OU Cristal';
+        var Copy = Metal + ' de Métal OU ' + Cristal + ' de Cristal';
       }
+
     } else {
-      var Metal = "/";
-      var Cristal = "/";
-      var Deuterium = "/";
+      var Metal = '/';
+      var Cristal = '/';
+      var Deuterium = '/';
+      var Copy = 'Aucun';
     }
+
+    // Copy Result to Textarea (Copy purpose)
+    $('#hidden-textarea').val(Copy);
 
     var Result = [Metal, Cristal, Deuterium];
     return Result;
-
 }
 
 function getTotal(){
-    //Here we get the total price by calling our function
-    //Each function returns a number so by calling them we add the values they return together
-    var Quantity = getQuantity();
     var RessourceType = getRessourceType();
+    var Quantity = getQuantity();
     var Total = calculTotal();
-    var TotalHtmlTitle = '<h4 class="col s12 left-align grey-text text-darken-4">Total</h4>'
-    var TotalHtml = '<table class="responsive-table centered col s12"><thead><tr><th data-field="total-metal">Métal</th><th data-field="total-cristal">Cristal</th><th data-field="total-deuterium">Deutérium</th></tr></thead><tbody><tr><td>' + Total[0] + '</td><td>' + Total[1] + '</td><td>' + Total[2] + '</td></tr></tbody></table>';
+    var Metal = Total[0];
+    var Cristal = Total[1];
+    var Deuterium = Total[2];
+    var TotalHtmlTitle = '<h4 class="grey-text text-darken-4">Total</h4>';
+    var TotalHtml = '<table class="centered"><thead><tr><th data-field="total-metal">Métal</th><th data-field="total-cristal">Cristal</th><th data-field="total-deuterium">Deutérium</th></tr></thead><tbody><tr><td>' + Metal + '</td><td>' + Cristal + '</td><td>' + Deuterium + '</td></tr></tbody></table>';
+    var Loader = '<div class="preloader-wrapper small active center"><div class="spinner-layer spinner-green-only"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div></div>';
 
-    //display the result
-    if (!((RessourceType == "") || (Quantity == ""))){
-      document.getElementById('total-div-title').innerHTML = TotalHtmlTitle;
-      document.getElementById('total-div').innerHTML = TotalHtml;
+    // Print var to debug
+    $('#debug').html('Debug :' + (typeof Metal) );
+
+    if (RessourceType === null || RessourceType === null || Quantity === undefined || Quantity === null) {
+      $('#total-div').html(Loader);
+      $('#total-div-title').html('');
+      $('#btn-copy-div').html('');
+    } else {
+      $('#total-div-title').html(TotalHtmlTitle);
+      $('#total-div').html(TotalHtml);
+      $('.hidden').show();
     }
 }
