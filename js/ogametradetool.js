@@ -38,22 +38,17 @@ function getRessourceType(){
     return RessourceType;
 }
 
-function setSelectedIndex(s, i){
-  s.options[i-1].selected = true;
-  return;
-}
-
 function resetForm(){
    document.getElementById("ogtradetool").reset();
+   ​document.getElementById("type-ressource").value = "#";​​​​​​​​​​
    document.getElementById("mix").checked = false;
    document.getElementById("mix").disabled = true;
    document.getElementById("ressource-type-select").className = "input-field col s6 m6";
    document.getElementById("ressource-image").className = "";
    document.getElementById("ressource-image").innerHTML = "";
-   document.getElementById('total-div-title').innerHTML = "";
-   document.getElementById('total-div').innerHTML = "";
-   setSelectedIndex(document.getElementById("type-ressource"),1);
- }
+   document.getElementById("total-div-title").innerHTML = "";
+   document.getElementById("total-div").innerHTML = "";
+}
 
 function showMix(){
     var OGTradeTool = document.forms["ogtradetool"];
