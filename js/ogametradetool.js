@@ -48,7 +48,7 @@ function resetForm(){
    document.getElementById('total-div-title').innerHTML = "";
    document.getElementById('total-div').innerHTML = "";
    var selectbox = document.getElementById("type-ressource");
-   selectbox.value = "";
+   selectbox.value = "#";
 }
 
 function showMix(){
