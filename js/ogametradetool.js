@@ -40,7 +40,7 @@ function getRessourceType(){
 
 function resetForm(){
    document.getElementById("ogtradetool").reset();
-   ​document.getElementById("type-ressource").value = "#";​​​​​​​​​​
+   ​document.getElementById("type-ressource").value = "none";​​​​​​​​​​
    document.getElementById("mix").checked = false;
    document.getElementById("mix").disabled = true;
    document.getElementById("ressource-type-select").className = "input-field col s6 m6";
