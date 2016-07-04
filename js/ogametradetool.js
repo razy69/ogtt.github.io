@@ -38,6 +38,11 @@ function getRessourceType(){
     return RessourceType;
 }
 
+function setSelectedIndex(s, i){
+  s.options[i-1].selected = true;
+  return;
+}
+
 function resetForm(){
    document.getElementById("ogtradetool").reset();
    document.getElementById("mix").checked = false;
@@ -47,9 +52,8 @@ function resetForm(){
    document.getElementById("ressource-image").innerHTML = "";
    document.getElementById('total-div-title').innerHTML = "";
    document.getElementById('total-div').innerHTML = "";
-   var selectbox = document.getElementById("type-ressource");
-   selectbox.value = "#";
-}
+   setSelectedIndex(document.getElementById("type-ressource"),1);
+ }
 
 function showMix(){
     var OGTradeTool = document.forms["ogtradetool"];
