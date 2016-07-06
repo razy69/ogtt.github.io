@@ -19,8 +19,15 @@ fieldset {
 
 .hidden-slider {
 	display: none;
+	overflow: hidden;
 }
 
 .hidden {
 	display: none;
+	overflow: hidden;
+}
+
+.textbox {
+	height: 100px;
+	overflow: hidden;
 }
