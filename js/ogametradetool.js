@@ -1,3 +1,18 @@
+function shortenLargeNumber(num, digits) {
+    var units = ['k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'],
+        decimal;
+
+    for(var i=units.length-1; i>=0; i--) {
+        decimal = Math.pow(1000, i+1);
+
+        if(num <= -decimal || num >= decimal) {
+            return +(num / decimal).toFixed(digits) + units[i];
+        }
+    }
+
+    return num;
+}
+
 function getRessourceType(){
 	var displayImage = '';
 	var RessourceType = $('#type-ressource').val();
@@ -122,18 +137,17 @@ function calculTotal(){
 	var isMix = $('#mix').is(':checked');
 	var Result = [];
 
-
 	if (RessourceType == 'metal'){
 		Metal = 'Cristal OU Deutérium';
-		Cristal = (Quantity / (TauxM / TauxC)).toFixed();
-		Deuterium = (Quantity / TauxM).toFixed();
-		Total = Cristal + ' de Cristal OU ' + Deuterium + ' de Deutérium';
+		Cristal = shortenLargeNumber((Quantity / (TauxM / TauxC)).toFixed(), 1);
+		Deuterium = shortenLargeNumber((Quantity / TauxM).toFixed(), 1);
+		Total = shortenLargeNumber(Cristal, 1) + ' de Cristal OU ' + shortenLargeNumber(Deuterium, 1) + ' de Deutérium';
 
 	} else if (RessourceType == 'cristal') {
-		Metal =  (Quantity * (TauxM / TauxC)).toFixed();
+		Metal =  shortenLargeNumber((Quantity * (TauxM / TauxC)).toFixed(), 1);
 		Cristal = 'Métal OU Deutérium';
-		Deuterium = (Quantity / TauxC).toFixed();
-		Total = Metal + ' de Métal OU ' + Deuterium + ' de Deutérium';
+		Deuterium = shortenLargeNumber((Quantity / TauxC).toFixed(), 1);
+		Total = shortenLargeNumber(Metal, 1) + ' de Métal OU ' + shortenLargeNumber(Deuterium, 1) + ' de Deutérium';
 
 	} else if (RessourceType == 'deuterium') {
 		if (isMix) {
@@ -141,18 +155,18 @@ function calculTotal(){
 			$('.content-mix .content-mix-value').html(Mix + '% de Métal');
 			MetalSansTaux = Quantity * (Mix / 100);
 			CristalSansTaux = Quantity * ((100 - Mix) / 100);
-			Metal = (MetalSansTaux * (TauxM / TauxD)).toFixed();
-			Cristal = (CristalSansTaux * (TauxC / TauxD)).toFixed();
+			Metal = shortenLargeNumber((MetalSansTaux * (TauxM / TauxD)).toFixed(), 1);
+			Cristal = shortenLargeNumber((CristalSansTaux * (TauxC / TauxD)).toFixed(), 1);
 			Deuterium = 'Métal ET Cristal';
-			Total = Metal + ' de Métal ET ' + Cristal + ' de Cristal';
+			Total = shortenLargeNumber(Metal, 1) + ' de Métal ET ' + shortenLargeNumber(Cristal, 1) + ' de Cristal';
 			Mix = Mix + '% de Métal';
 		} else {
 			$('.hidden-slider').hide();
 			$('.content-mix .content-mix-value').html('');
-			Metal = (Quantity * (TauxM/TauxD)).toFixed();
-			Cristal = (Quantity * (TauxC/TauxD)).toFixed();
+			Metal = shortenLargeNumber((Quantity * (TauxM/TauxD)).toFixed(), 1);
+			Cristal = shortenLargeNumber((Quantity * (TauxC/TauxD)).toFixed(), 1);
 			Deuterium = 'Métal OU Cristal';
-			Total = Metal + ' de Métal OU ' + Cristal + ' de Cristal';
+			Total = shortenLargeNumber(Metal, 1) + ' de Métal OU ' + shortenLargeNumber(Cristal, 1) + ' de Cristal';
 			Mix = "Non";
 		}
 
@@ -165,7 +179,11 @@ function calculTotal(){
 	Result = [Metal, Cristal, Deuterium];
 	// Copy Result to Textarea (to Copy text)
 	RessourceType = RessourceType.charAt(0).toUpperCase() + RessourceType.slice(1);
-	Copy = 'Ressources à Vendre : ' + Quantity + ' de ' + RessourceType + '\nTaux : ' + TauxM + '/' + TauxC + '/' + TauxD + '\nMix : ' + Mix + '\nTotal : ' + Total;
+	if (isMix){
+		Copy = 'Ressources à Vendre : ' + shortenLargeNumber(Quantity, 1) + ' de ' + RessourceType + '\nTaux : ' + TauxM + '/' + TauxC + '/' + TauxD + '\nMix : ' + Mix + '\nTotal : ' + Total;
+	} else {
+		Copy = 'Ressources à Vendre : ' + shortenLargeNumber(Quantity, 1) + ' de ' + RessourceType + '\nTaux : ' + TauxM + '/' + TauxC + '/' + TauxD + '\nTotal : ' + Total;
+	}
 	$('#hidden-textarea').val(Copy);
 
 	return Result;
