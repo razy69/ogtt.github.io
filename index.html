@@ -41,8 +41,8 @@
 						</div>
 						<div class="row">
 							<div class="input-field col s6 m6">
-								<input placeholder="Saisissez un montant" id="quantity" onchange="getTotal()" required>
-								<label class="active" for="quantity">Quantité à vendre</label>
+								<input placeholder="Saisissez un montant" id="quantity" onchange="getTotal()" required class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Unités : kilo, Mega, Giga, Tera, Peta (ex: 10000 ou 10k; 1000000 ou 1M)">
+								<label class="active" for="quantity" data-error="Valeur incorrecte" data-success="Valeur correcte">Quantité à vendre</label>
 							</div>
 							<div class="input-field col s6 m6" id="ressource-type-select">
 								<select class="icons" id="type-ressource" onchange="getTotal()">
@@ -84,11 +84,11 @@
 						</div>
 						<div class="row">
 							<div class="input-field col s4 m4">
-								<input required value="2" placeholder="Entre 1,5 et 3" id="taux-metal" onclick="getTotal()" type="number" step="0.1" min="1.5" max="3">
+								<input required value="2" placeholder="Entre 1,4 et 3" id="taux-metal" onchange="getTotal()" type="number" step="0.1" min="1.4" max="3" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Entre 1,4 et 3">
 								<label for="taux-metal">Métal</label>
 							</div>
 							<div class="input-field col s4 m4">
-								<input value="1.5" placeholder="Entre 1,2 et 2" id="taux-cristal" onclick="getTotal()" type="number" step="0.1" min="1.2" max="2">
+								<input value="1.5" placeholder="Entre 1,2 et 2,5" id="taux-cristal" onchange="getTotal()" type="number" step="0.1" min="1.2" max="2.5" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Entre 1,2 et 2,5">
 								<label for="taux-cristal">Cristal</label>
 							</div>
 							<div class="input-field col s4 m4">

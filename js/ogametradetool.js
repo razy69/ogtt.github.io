@@ -1,16 +1,57 @@
 function shortenLargeNumber(num, digits) {
-    var units = ['k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'],
+    var units = ['k', 'M', 'G', 'T', 'P'],
         decimal;
 
-    for(var i=units.length-1; i>=0; i--) {
+    for (var i = units.length - 1; i >= 0; i--) {
         decimal = Math.pow(1000, i+1);
 
-        if(num <= -decimal || num >= decimal) {
-            return +(num / decimal).toFixed(digits) + units[i];
+        if (num <= - decimal || num >= decimal) {
+            return + (num / decimal).toFixed(digits) + units[i];
         }
     }
 
     return num;
+}
+
+function reverseShortenLageNumber(num) {
+	var k = 1000;
+	var M = 1000000;
+	var G = 1000000000;
+	var T = 1000000000000;
+	var P = 1000000000000000;
+	var regex = /^\d{1,3}[kKMmGmTtPp]{1}$/g;
+	var retest = regex.test(num);
+	var splittedNum = num.split(/[kKMmGmTtPp]{1}$/);
+
+	if (retest){
+        if (/.[kK]{1}$/.test(num)){
+            num = parseInt(splittedNum[0] * k);
+        } else if (/.[mM]{1}$/.test(num)) {
+			num = parseInt(splittedNum[0] * M);
+        } else if (/.[gG]{1}$/.test(num)) {
+			num = parseInt(splittedNum[0] * G);
+        } else if (/.[tT]{1}$/.test(num)) {
+			num = parseInt(splittedNum[0] * T);
+        } else if (/.[pP]{1}$/.test(num)) {
+			num = parseInt(splittedNum[0] * P);
+        }
+		$('#quantity').removeClass('invalid').addClass('valid');
+
+	} else {
+        num = null;
+		$('#mix').prop('checked', false);
+		$('#mix').prop('disabled', true);
+		$('.hidden-slider').hide();
+		$('.content-mix .content-mix-value').html('');
+		$('#total-div-title').html('');
+		$('#total-div').html('');
+		$('#btn-copy-div').html('');
+		$('.hidden').hide();
+		$('#quantity').removeClass('valid').addClass('invalid');
+
+	}
+
+	return num;
 }
 
 function getRessourceType(){
@@ -59,6 +100,9 @@ function resetForm(){
 	$('#total-div').html('');
 	$('#btn-copy-div').html('');
 	$('.hidden').hide();
+	$('#quantity').val('');
+	$('#quantity').removeClass('valid');
+	$('#quantity').removeClass('invalid');
 }
 
 function showMix(){
@@ -83,26 +127,24 @@ function getMix(){
 function getTaux(){
 	var GetTauxMetal = $('#taux-metal').val();
 	var GetTauxCristal = $('#taux-cristal').val();
-	var GetTauxDeuterium = $('#taux-deuterium').val();
-	var TauxMetal = parseFloat('2.2');
-	var TauxCristal = parseFloat('1.6');
-	var TauxDeuterium = parseFloat('1');
+	var TauxMetal = parseFloat('2');
+	var TauxCristal = parseFloat('1.5');
+	var TauxDeuterium = parseInt('1');
 	var Taux = [];
 
-	if (GetTauxMetal !== ''){
+	if (GetTauxMetal >= 1.4 && GetTauxMetal <= 3 ){
 		TauxMetal = parseFloat(GetTauxMetal);
-	}
-	if (GetTauxCristal !== '') {
-		TauxCristal = parseFloat(GetTauxCristal);
-	}
-	if (GetTauxDeuterium !== '') {
-		TauxDeuterium = parseFloat(GetTauxDeuterium);
-	}
-	if ((GetTauxMetal !== '') || (GetTauxCristal !== '') || (GetTauxDeuterium !== '')){
-		Taux = [TauxMetal, TauxCristal, TauxDeuterium];
 	} else {
-		Taux = [2.2, 1.6, 1];
+		$('#taux-metal').val(TauxMetal);
 	}
+
+	if (GetTauxCristal >= 1.2 && GetTauxCristal <= 2.5) {
+		TauxCristal = parseFloat(GetTauxCristal);
+	} else {
+		$('#taux-cristal').val(TauxCristal);
+	}
+
+	Taux = [TauxMetal, TauxCristal, 1];
 
 	return Taux;
 }
@@ -111,9 +153,10 @@ function getQuantity(){
 	var Quantity = $('#quantity').val();
 
 	if (Quantity > 0){
-		Quantity = parseInt(Quantity);
+		$('#quantity').val(shortenLargeNumber(Quantity));
+		$('#quantity').removeClass('invalid').addClass('valid');
 	} else {
-		Quantity = null;
+		Quantity = reverseShortenLageNumber(Quantity);
 	}
 
 	return Quantity;
